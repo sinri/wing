@@ -10,7 +10,7 @@ void main() {
     String s = "Hello, World!啊速度符i哈两岁多发货哦就💰8230rhdsfADSFadsfkhydkf";
     var uint8list = utf8.encode(s);
 
-    var codes = nyaCode.fromBinary(uint8list);
+    var codes = nyaCode.fromBinarySync(uint8list);
     // print("codes: $codes");
 
     String encoded = nyaCode.encodeToNyaCode(codes);
@@ -19,7 +19,7 @@ void main() {
     String decoded = nyaCode.decodeFromNyaCode(encoded);
     // print("Decoded: $decoded");
 
-    var binary = nyaCode.toBinary(decoded);
+    var binary = nyaCode.toBinarySync(decoded);
     var result = utf8.decode(binary);
     // print("fin: $result");
 

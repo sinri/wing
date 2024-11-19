@@ -4,7 +4,12 @@ class NyaCodeHelper {
   final String dict =
       "-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.";
 
-  String fromBinary(Uint8List bytes) {
+  Future<String> fromBinary(Uint8List bytes) {
+    var s = fromBinarySync(bytes);
+    return Future.value(s);
+  }
+
+  String fromBinarySync(Uint8List bytes) {
     // var bytes = await File("path").readAsBytes();
     String s = "";
     for (var b in bytes) {
@@ -16,7 +21,12 @@ class NyaCodeHelper {
     return s;
   }
 
-  Uint8List toBinary(String s) {
+  Future<Uint8List> toBinary(String s) {
+    var b = toBinarySync(s);
+    return Future.value(b);
+  }
+
+  Uint8List toBinarySync(String s) {
     List<int> elements = [];
     int? buffer;
     var codeUnits = s.codeUnits;

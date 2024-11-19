@@ -1,5 +1,8 @@
 # wing
-A kit for Flutter and Dart, to be found on pub.dev.
+
+A kit for Flutter and Dart.
+
+Use `dart pub publish` to publish it to publisher `sinri.cc`.
 
 ## JSON Helper
 
