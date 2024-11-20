@@ -9,3 +9,8 @@
 ## 0.0.3
 
 * add Logging.
+
+## 0.0.4
+
+* refine Logger.
+

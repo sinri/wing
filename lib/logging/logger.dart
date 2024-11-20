@@ -10,7 +10,7 @@ enum WingLogLevel {
   error;
 }
 
-/// Since 0.0.3
+/// Since 0.0.4
 class WingLogger {
   final String topic;
 
@@ -29,23 +29,23 @@ class WingLogger {
     }
   }
 
-  void debug(WingLogLevel level, String message) {
+  void debug(String message) {
     _log(WingLogLevel.debug, message);
   }
 
-  void info(WingLogLevel level, String message) {
+  void info(String message) {
     _log(WingLogLevel.info, message);
   }
 
-  void notice(WingLogLevel level, String message) {
+  void notice(String message) {
     _log(WingLogLevel.notice, message);
   }
 
-  void warning(WingLogLevel level, String message) {
+  void warning(String message) {
     _log(WingLogLevel.warning, message);
   }
 
-  void error(WingLogLevel level, String message) {
+  void error(String message) {
     _log(WingLogLevel.error, message);
   }
 }

@@ -3,13 +3,19 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:eventsource/eventsource.dart';
+import 'package:sinri_wing/logging/logger.dart';
+import 'package:sinri_wing/wing.dart';
 
-class HttpHelper{
+class HttpHelper {
   final String _scheme;
   final String _host;
   final String _pathRoot;
 
-  HttpHelper(this._scheme, this._host, this._pathRoot);
+  late WingLogger _logger;
+
+  HttpHelper(this._scheme, this._host, this._pathRoot) {
+    _logger = Wing.createLogger(topic: "HttpHelper");
+  }
 
   final Map<String, String> _queryMap = {};
   final Map<String, String> _headerMap = {};
@@ -54,9 +60,9 @@ class HttpHelper{
 
     var postBody = json.encode(map);
     request.add(utf8.encode(postBody));
-    log('start request api: $uri, post body: $postBody');
+    _logger.debug('start request api: $uri, post body: $postBody');
     HttpClientResponse response = await request.close();
-    log('response code is ${response.statusCode}');
+    _logger.debug('response code is ${response.statusCode}');
     if (response.statusCode != 200) {
       //GibeahHelper.info("api response: status code is ${response.statusCode}");
       throw HttpException("HTTP CODE IS NOT 200", uri: uri);
@@ -70,14 +76,14 @@ class HttpHelper{
 
     Map<String, dynamic> respMap = json.decode(raw);
     respMap.forEach((key, value) {
-      log('resp map[$key] = $value');
+      _logger.debug('resp map[$key] = $value');
     });
     return Future.value(respMap);
   }
 
   Future sse(
-      String api,
-      Map<String, dynamic> map,
+    String api,
+    Map<String, dynamic> map,
       eventHandler, {
         Function? onError,
         void Function()? onDone,
