@@ -5,3 +5,7 @@
 ## 0.0.2
 
 * NyaCode binary provide sync and async.
+
+## 0.0.3
+
+* add Logging.
