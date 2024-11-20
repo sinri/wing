@@ -35,8 +35,10 @@ class HttpHelper {
     return _postWithClient(api, map);
   }
 
-  Future<Map<String, dynamic>> _postWithClient(
-      String api, Map<String, dynamic> map) async {
+  Future<Map<String, dynamic>> _postWithClient(String api,
+      Map<String, dynamic> map, {
+        bool verbose = false,
+      }) async {
     HttpClient httpClient = HttpClient();
     var uri = Uri(
       scheme: _scheme,
@@ -60,34 +62,36 @@ class HttpHelper {
 
     var postBody = json.encode(map);
     request.add(utf8.encode(postBody));
-    _logger.debug('start request api: $uri, post body: $postBody');
+    if (verbose) {
+      _logger.debug('start request api: $uri, post body: $postBody');
+    } else {
+      _logger.debug('start request api: $uri');
+    }
     HttpClientResponse response = await request.close();
     _logger.debug('response code is ${response.statusCode}');
     if (response.statusCode != 200) {
-      //GibeahHelper.info("api response: status code is ${response.statusCode}");
       throw HttpException("HTTP CODE IS NOT 200", uri: uri);
     }
     var transform = response.transform(utf8.decoder);
     final String raw = await transform.join();
     httpClient.close();
-    // log('response raw content is ↓ ');
-    // log('${raw.runtimeType}, ${raw.length}, ${raw.characters}');
-    // log(raw);
 
     Map<String, dynamic> respMap = json.decode(raw);
-    respMap.forEach((key, value) {
-      _logger.debug('resp map[$key] = $value');
-    });
+    if (verbose) {
+      respMap.forEach((key, value) {
+        _logger.debug('resp map[$key] = $value');
+      });
+    }
     return Future.value(respMap);
   }
 
   Future sse(
     String api,
     Map<String, dynamic> map,
-      eventHandler, {
-        Function? onError,
-        void Function()? onDone,
-      }) async {
+    eventHandler, {
+    Function? onError,
+    void Function()? onDone,
+  }) async {
     var uri = Uri(
       scheme: _scheme,
       host: _host,
@@ -110,5 +114,4 @@ class HttpHelper {
       }
     });
   }
-
 }

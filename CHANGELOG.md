@@ -25,3 +25,7 @@
 ## 0.0.7
 
 * NyaCodeHelper Isolate.
+
+## 0.0.8
+
+* Http Logging Verbose
