@@ -13,10 +13,10 @@ void main() {
     var codes = nyaCode.fromBinarySync(uint8list);
     // print("codes: $codes");
 
-    String encoded = nyaCode.encodeToNyaCode(codes);
+    String encoded = nyaCode.encodeToNyaCodeSync(codes);
     // print("Encoded: $encoded");
 
-    String decoded = nyaCode.decodeFromNyaCode(encoded);
+    String decoded = nyaCode.decodeFromNyaCodeSync(encoded);
     // print("Decoded: $decoded");
 
     var binary = nyaCode.toBinarySync(decoded);

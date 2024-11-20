@@ -4,7 +4,8 @@ class NyaCodeHelper {
   final String dict =
       "-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.";
 
-  Future<String> fromBinary(Uint8List bytes) {
+  /// Since 0.0.5 Async
+  Future<String> fromBinary(Uint8List bytes) async {
     var s = fromBinarySync(bytes);
     return Future.value(s);
   }
@@ -21,7 +22,8 @@ class NyaCodeHelper {
     return s;
   }
 
-  Future<Uint8List> toBinary(String s) {
+  /// Since 0.0.5 Async
+  Future<Uint8List> toBinary(String s) async {
     var b = toBinarySync(s);
     return Future.value(b);
   }
@@ -44,7 +46,13 @@ class NyaCodeHelper {
     return Uint8List.fromList(elements);
   }
 
-  String encodeToNyaCode(String input) {
+  /// Since 0.0.5 Async
+  Future<String> encodeToNyaCode(String input) async {
+    var s = encodeToNyaCodeSync(input);
+    return s;
+  }
+
+  String encodeToNyaCodeSync(String input) {
     String asciiInput = Uri.encodeComponent(input);
     String result = '';
     for (int i = 0; i < asciiInput.length; i++) {
@@ -56,7 +64,13 @@ class NyaCodeHelper {
     return result;
   }
 
-  String decodeFromNyaCode(String output) {
+  /// Since 0.0.5 Async
+  Future<String> decodeFromNyaCode(String output) async {
+    var s = decodeFromNyaCodeSync(output);
+    return s;
+  }
+
+  String decodeFromNyaCodeSync(String output) {
     String result = '';
     for (int i = 0; i < output.length - 1; i += 2) {
       int h = dict.indexOf(output[i]);
