@@ -1,31 +1,41 @@
+import 'dart:isolate';
 import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
 
 class NyaCodeHelper {
   final String dict =
       "-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz.";
 
-  /// Since 0.0.5 Async
+  /// Since 0.0.7 Async
   Future<String> fromBinary(Uint8List bytes) async {
-    var s = fromBinarySync(bytes);
-    return Future.value(s);
+    return await Isolate.run(() async {
+      var s = fromBinarySync(bytes);
+      return s;
+    });
   }
 
   String fromBinarySync(Uint8List bytes) {
     // var bytes = await File("path").readAsBytes();
-    String s = "";
+    //String s = "";
+    StringBuffer sb = StringBuffer();
     for (var b in bytes) {
       // b belongs to [0,255]
       var p1 = (b & 240) >> 4; // 0b11110000
       var p2 = b & 15; // 0b00001111
-      s += dict[p1] + dict[p2];
+      //s += dict[p1] + dict[p2];
+      sb.write(dict[p1]);
+      sb.write(dict[p2]);
     }
-    return s;
+    return sb.toString();
   }
 
-  /// Since 0.0.5 Async
+  /// Since 0.0.7 Async
   Future<Uint8List> toBinary(String s) async {
-    var b = toBinarySync(s);
-    return Future.value(b);
+    return await Isolate.run(() async {
+      var b = toBinarySync(s);
+      return b;
+    });
   }
 
   Uint8List toBinarySync(String s) {
@@ -46,10 +56,12 @@ class NyaCodeHelper {
     return Uint8List.fromList(elements);
   }
 
-  /// Since 0.0.5 Async
+  /// Since 0.0.7 Async
   Future<String> encodeToNyaCode(String input) async {
-    var s = encodeToNyaCodeSync(input);
-    return s;
+    return await Isolate.run(() async {
+      var s = encodeToNyaCodeSync(input);
+      return s;
+    });
   }
 
   String encodeToNyaCodeSync(String input) {
@@ -64,10 +76,12 @@ class NyaCodeHelper {
     return result;
   }
 
-  /// Since 0.0.5 Async
+  /// Since 0.0.7 Async
   Future<String> decodeFromNyaCode(String output) async {
-    var s = decodeFromNyaCodeSync(output);
-    return s;
+    return await Isolate.run(() async {
+      var s = decodeFromNyaCodeSync(output);
+      return s;
+    });
   }
 
   String decodeFromNyaCodeSync(String output) {

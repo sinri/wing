@@ -18,3 +18,10 @@
 
 * NyaCodeHelper Async.
 
+## 0.0.6
+
+* NyaCodeHelper Async.
+
+## 0.0.7
+
+* NyaCodeHelper Isolate.
